@@ -1,12 +1,12 @@
 import tty, sys
 import curses, datetime, locale
+import qrcode, StringIO
 from decimal import Decimal
-
 from electrum_ltc.util import format_satoshis, set_verbosity
 from electrum_ltc.util import StoreDict
 from electrum_ltc.bitcoin import is_valid, COIN, TYPE_ADDRESS
 from electrum_ltc import Wallet, WalletStorage
-
+s = StringIO.StringIO()
 _ = lambda x:x
 
 
@@ -17,9 +17,9 @@ class ElectrumGui:
 
         self.config = config
         self.network = daemon.network
-        storage = WalletStorage(config.get_wallet_path())
+        storage = WalletStorage(config.get_wallet_path())   #this needs updating for woodcoin
         if not storage.file_exists:
-            print "Wallet not found. try 'electrum-ltc create'"
+            print "Wallet not found. try 'electrum-wdc create'"
             exit()
 
         self.wallet = Wallet(storage)
@@ -178,8 +178,7 @@ class ElectrumGui:
             self.print_list( self.network.banner.split('\n'))
 
     def print_qr(self, data):
-        import qrcode, StringIO
-        s = StringIO.StringIO()
+
         self.qr = qrcode.QRCode()
         self.qr.add_data(data)
         self.qr.print_ascii(out=s, invert=False)
