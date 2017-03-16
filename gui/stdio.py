@@ -17,7 +17,7 @@ class ElectrumGui:
         self.network = daemon.network
         storage = WalletStorage(config.get_wallet_path())
         if not storage.file_exists:
-            print "Wallet not found. try 'electrum-ltc create'"
+            print "Wallet not found. try 'electrum-wdc create'"
             exit()
 
         self.done = 0
@@ -51,7 +51,7 @@ class ElectrumGui:
             self.updated()
         elif event == 'banner':
             self.print_banner()
-
+#this needs changing and porting to python3
     def main_command(self):
         self.print_balance()
         c = raw_input("enter command: ")
